@@ -111,28 +111,65 @@ DeviceNetworkEvents
 
 # Chronological Events  
 
-## Threat Hunt Timeline Report: Tor Browser Usage  
+## Threat Hunt Timeline Report: Tor Browser Usage
 
-### 2025-04-02T02:36:09.4572291Z  
-- Evidence found that the user **employee** opened the **Tor browser**.  
-- Multiple instances of **firefox.exe (Tor)** and **tor.exe** were created on the device **Ash-threat**.  
-- **Query Used:** `DeviceProcessEvents`  
+### File Download - TOR Installer
 
-### 2025-04-02T02:42:35.4896553Z  
-- A computer named **ash-threathub-l** executed `tor-browser-windows-x86_64-portable-14.0.9.exe`.  
-- The program was launched with the `/S` command, indicating a **silent installation** with no user interaction.  
-- **Query Used:** `DeviceProcessEvents`  
+- **Timestamp:**  `2025-04-02T02:36:09.4572291Z`
+- Evidence found that the user **employee** opened the **Tor browser**.
+- Multiple instances of `firefox.exe (Tor)` and `tor.exe` were created on the device **Ash-threat**.
+- **Query Used:** `DeviceProcessEvents`
+- **Event:** The user `employee` downloaded a file named `tor-browser-windows-x86_64-portable-14.0.1.exe` to the Downloads folder.
+- **Action:** File download detected.
+- **File Path:** `C:\Users\employee\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
 
-### 2025-04-02T02:42:50.3540302Z  
-- A user named **"employee"** downloaded and used the **Tor browser**.  
-- Several **Tor-related files** were created and copied to the desktop, including `torlist.txt`.  
-- **Query Used:** `DeviceFileEvents`  
+### Process Execution - TOR Browser Installation
 
-### 2025-04-02T04:13:11.2923039Z  
-- The user **employee** on the computer **ash-threathunt** successfully established a **Tor network connection**.  
-- **Firefox** was configured to use **Tor** via **localhost (127.0.0.1) on port 9150**.  
-- This suggests that the **Tor network** was actively being used for **anonymous browsing**.  
-- **Query Used:** `DeviceNetworkEvents`  
+- **Timestamp:** `2025-04-02T02:42:35.4896553Z`
+- A computer named **ash-threathub-l** executed `tor-browser-windows-x86_64-portable-14.0.9.exe`.
+- The program was launched with the `/S` command, indicating a **silent installation** with no user interaction.
+- **Query Used:** `DeviceProcessEvents`
+- **Event:** The user `employee` executed the file `tor-browser-windows-x86_64-portable-14.0.1.exe` in silent mode, initiating a background installation of the TOR Browser.
+- **Action:** Process creation detected.
+- **Command:** `tor-browser-windows-x86_64-portable-14.0.1.exe /S`
+- **File Path:** `C:\Users\employee\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
+
+### Process Execution - TOR Browser Launch
+
+- **Timestamp:** `2025-04-02T02:42:50.3540302Z`
+- A user named **employee** downloaded and used the **Tor browser**.
+- Several **Tor-related files** were created and copied to the desktop, including `torlist.txt`.
+- **Query Used:** `DeviceFileEvents`
+- **Event:** User `employee` opened the TOR browser. Subsequent processes associated with TOR browser, such as `firefox.exe` and `tor.exe`, were also created, indicating that the browser launched successfully.
+- **Action:** Process creation of TOR browser-related executables detected.
+- **File Path:** `C:\Users\employee\Desktop\Tor Browser\Browser\TorBrowser\Tor\tor.exe`
+
+### Network Connection - TOR Network
+
+- **Timestamp:** `2025-04-02T04:13:11.2923039Z`
+- The user **employee** on the computer **ash-threathunt** successfully established a **Tor network connection**.
+- **Firefox** was configured to use **Tor** via **localhost (127.0.0.1) on port 9150**.
+- This suggests that the **Tor network** was actively being used for **anonymous browsing**.
+- **Query Used:** `DeviceNetworkEvents`
+- **Event:** A network connection to IP `176.198.159.33` on port `9001` by user `employee` was established using `tor.exe`, confirming TOR browser network activity.
+- **Action:** Connection success.
+- **Process:** `tor.exe`
+- **File Path:** `C:\Users\employee\Desktop\Tor Browser\Browser\TorBrowser\Tor\tor.exe`
+
+### Additional Network Connections - TOR Browser Activity
+
+- **Timestamps:**
+  - **Timestamp:** `2024-11-08T22:18:08Z` - Connected to `194.164.169.85` on port `443`.
+  - `2024-11-08T22:18:16Z` - Local connection to `127.0.0.1` on port `9150`.
+- **Event:** Additional TOR network connections were established, indicating ongoing activity by user `employee` through the TOR browser.
+- **Action:** Multiple successful connections detected.
+
+### File Creation - TOR Shopping List
+
+- **Timestamp:** `2024-11-08T22:27:19.7259964Z`
+- **Event:** The user `employee` created a file named `tor-shopping-list.txt` on the desktop, potentially indicating a list or notes related to their TOR browser activities.
+- **Action:** File creation detected.
+- **File Path:** `C:\Users\employee\Desktop\tor-shopping-list.txt
 
 ---
 
@@ -147,6 +184,7 @@ This investigation confirms that an **employee installed, launched, and actively
 
 ## Response Taken
 
-TOR usage was confirmed on the endpoint `threat-hunt-lab` by the user `employee`. The device was isolated, and the user's direct manager was notified.
+TOR usage was confirmed on the endpoint `ash-threathunt-lab` by the user `employee`. The device was isolated, and the user's direct manager was notified.
+
 
 ---
